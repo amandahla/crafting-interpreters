@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct node {
     char *val;
@@ -7,9 +8,9 @@ typedef struct node {
     struct node *next;
 } my_node;
 
-// new
-// insert
-// find
+// new v
+// insert v
+// find v
 // delete
 
 /* Given a reference (pointer to pointer) to the head of a
@@ -30,7 +31,19 @@ my_node * newlist(char *str)
     return head;
 }
 
-void push(my_node * head,char *str)
+my_node * find(my_node * head,char *str)
+{
+    my_node *last = head;
+    while (last != NULL) {
+        if (strcmp(last->val,str) == 0) {
+            return last;
+        }
+        last = last->next;
+    }
+    return NULL;
+}
+
+void insert(my_node * head,char *str)
 {
     my_node *newnode = NULL;
     newnode = (my_node *) malloc(sizeof(my_node));
@@ -70,8 +83,18 @@ int main() {
     char *str1;
     str1 = (char *) malloc(11);
     strcpy(str1, "I'm the last");
-    push(head,str1);
+    insert(head,str1);
 
     printall(head);
+
+    printf("Find: %s\n",str1);
+
+    my_node *result = find(head,str1);
+    if (result != NULL) {
+        printf("Found: %s\n",result->val);
+    }else{
+        printf("not found");
+    }
+
     return 0;
 }
